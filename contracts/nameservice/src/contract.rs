@@ -50,6 +50,8 @@ pub fn execute_register(
     let config = CONFIG.load(deps.storage)?;
     assert_sent_sufficient_coin(&info.funds, config.purchase_price)?;
 
+    //TODO: Add external fn to modify the name
+
     let key = name.as_bytes();
     let record = NameRecord { owner: info.sender };
 

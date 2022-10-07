@@ -2,6 +2,10 @@ use cosmwasm_std::{
     entry_point, to_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdError, StdResult,
 };
 
+extern "C" {
+    fn changeName(key: String) -> String;
+}
+
 use crate::coin_helpers::assert_sent_sufficient_coin;
 use crate::error::ContractError;
 use crate::msg::{ConfigResponse, ExecuteMsg, InstantiateMsg, QueryMsg, ResolveRecordResponse};
@@ -51,8 +55,8 @@ pub fn execute_register(
     assert_sent_sufficient_coin(&info.funds, config.purchase_price)?;
 
     //TODO: Add external fn to modify the name
-
-    let key = name.as_bytes();
+    let newName = unsafe { changeName(name.clone()) };
+    let key = newName.as_bytes();
     let record = NameRecord { owner: info.sender };
 
     if (NAME_RESOLVER.may_load(deps.storage, key)?).is_some() {

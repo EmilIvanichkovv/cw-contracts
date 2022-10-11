@@ -10,7 +10,7 @@ repository = "https://github.com/InterWasm/cw-contracts"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib"]
 
 [profile.release]
 opt-level = 3
@@ -37,3 +37,5 @@ thiserror = "1.0.31"
 
 [dev-dependencies]
 
+[build-dependencies]
+cc = "1.0"

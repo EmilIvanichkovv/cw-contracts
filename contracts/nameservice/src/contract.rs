@@ -3,7 +3,7 @@ use cosmwasm_std::{
 };
 
 extern "C" {
-    fn changeName(key: String) -> String;
+    fn add(a: i32, b: i32 ) -> i32;
 }
 
 use crate::coin_helpers::assert_sent_sufficient_coin;
@@ -55,7 +55,7 @@ pub fn execute_register(
     assert_sent_sufficient_coin(&info.funds, config.purchase_price)?;
 
     //TODO: Add external fn to modify the name
-    let newName = unsafe { changeName(name.clone()) };
+    let newName = unsafe { add(2, 3).to_string() };
     let key = newName.as_bytes();
     let record = NameRecord { owner: info.sender };
 
